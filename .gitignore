@@ -1,3 +1,8 @@
 info.py
 __pycache__/
 *.ipynb
+notebooks/
+*.env
+.venv/
+raw/
+artifacts/
