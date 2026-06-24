@@ -75,7 +75,7 @@ class StockLSTM(nn.Module):
         predictions = self.fc2(x)
         return predictions
 
-def training_LSTM(train_loader, model, epochs = 30):
+def training_LSTM(train_loader, model, epochs = 20):
     criterion = nn.MSELoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
     print("Training PyTorch LSTM...")
@@ -96,12 +96,16 @@ def training_LSTM(train_loader, model, epochs = 30):
 
 def model_evaluation(model, X_test_t, y_test_t):
     model.eval()
-
     with torch.no_grad():
         lstm_preds_t = model(X_test_t)
         lstm_preds_np = lstm_preds_t.cpu().numpy()
         y_test_actual = y_test_t.cpu().numpy()
 
+    mae = mean_absolute_error(y_test_actual, lstm_preds_np)
+    rmse = np.sqrt(mean_squared_error(y_test_actual, lstm_preds_np))
+
     print("\n--- PyTorch Multimodal LSTM Performance ---")
-    print(f"MAE:  {mean_absolute_error(y_test_actual, lstm_preds_np):.6f}")
-    print(f"RMSE: {np.sqrt(mean_squared_error(y_test_actual, lstm_preds_np)):.6f}")
+    print(f"MAE:  {mae:.6f}")
+    print(f"RMSE: {rmse:.6f}")
+    
+    return {"MAE": mae, "RMSE": rmse}
