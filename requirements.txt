@@ -3,3 +3,8 @@ numpy
 scikit-learn
 xgboost
 pandas_ta_classic
+dotenv
+torch
+tqdm
+matplotlib
+transformers
