@@ -98,15 +98,3 @@ if __name__ == "__main__":
         json.dump(all_metrics, f, indent=4)
         
     print("All models, scalers, and metrics successfully saved to /artifacts.")
-    
-    last_12_bars = meta_pn_df.tail(12)
-    current_actual_price = last_12_bars['Close'].iloc[-1]
-
-    predict_next_price(
-        model=model, 
-        scaler=scaler, 
-        latest_data_df=last_12_bars, 
-        multimodal_features=multimodal_features, 
-        current_price=current_actual_price,
-        device=device
-    )
